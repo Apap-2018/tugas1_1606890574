@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Cari Pegawai</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag">/</object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar(name='Home')"></nav>
+	
+		<div class="container-fluid">
+	<br>
+	<h3>Cari Pegawai</h3>
+	<br>
+		<form th:action="@{/pegawai/cari}" method="GET">
+			<div class="form-group row">
+			   <label for="provinsi" class="col-sm-2 col-form-label">Provinsi </label>
+			   <div class="col-sm-10">
+			     <select class="form-control" required="required" th:value="${provinsi}" name="idProvinsi" id="idProvinsi">
+	                    <option disabled="disabled" selected="selected" > -- Provinsi --</option>
+	                    <option th:each="prov : ${provinsi}" th:value="${prov.id}" th:text="${prov.nama}" ></option>
+	            </select>
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="instansi" class="col-sm-2 col-form-label">Nama Instansi </label>
+			   <div class="col-sm-10">
+			     <select class="form-control" required="required" th:value="${listInstansi}" name="idInstansi" id="idInstansi">
+	                    <option disabled="disabled" selected="selected" > -- Instansi --</option>
+	                    <option th:each="ins : ${listInstansi}" th:value="${ins.id}" th:text="${ins.nama}" ></option>
+	            </select>
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
+			   <div class="col-sm-10">
+			     <select class="form-control" required="required" th:value="${listJabatan}" name="idJabatan" id="idJabatan">
+	                    <option disabled="disabled" selected="selected" > -- Jabatan --</option>
+	                    <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
+	            </select>
+	            <a ></a>
+			   </div>
+			</div>
+			<p></p>
+				<button type="submit" class="btn btn-primary">Cari</button>
+		</form>
+		
+		<table id="table_id" class="display">
+		    <thead>
+		        <tr>
+		            <th>Column 1</th>
+		            <th>Column 2</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr>
+		            <td>Row 1 Data 1</td>
+		            <td>Row 1 Data 2</td>
+		        </tr>
+		        <tr>
+		            <td>Row 2 Data 1</td>
+		            <td>Row 2 Data 2</td>
+		        </tr>
+		    </tbody>
+		</table>
+	</div>
+</body>
+
+</html>

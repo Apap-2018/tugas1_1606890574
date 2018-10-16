@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag">/</object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar(name='Home')"></nav>
+	
+		<div class="container-fluid">
+	<br>
+	<h3>Tambah Pegawai</h3>
+	<br>
+		<form th:action="@{/pegawai}" method="GET">
+			<div class="form-group row">
+			   <label for="nama" class="col-sm-2 col-form-label">Nama </label>
+			   <div class="col-sm-10">
+			     <input type="text" class="form-control" name="nama">
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir </label>
+			   <div class="col-sm-10">
+			     <input type="text" class="form-control" name="tempat_lahir">
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir </label>
+			   <div class="col-sm-10">
+			     <input type="Date" class="form-control" name="tanggal_lahir">
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="tahun_masuk" class="col-sm-2 col-form-label">Tahun Masuk </label>
+			   <div class="col-sm-10">
+			     <input type="text" class="form-control" name="tahun_masuk">
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="provinsi" class="col-sm-2 col-form-label">Provinsi </label>
+			   <div class="col-sm-10">
+			     <select class="form-control" required="required" th:value="${provinsi}" name="idProvinsi" id="idProvinsi">
+	                    <option disabled="disabled" selected="selected" > -- Provinsi --</option>
+	                    <option th:each="prov : ${provinsi}" th:value="${prov.id}" th:text="${prov.nama}" ></option>
+	            </select>
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="instansi" class="col-sm-2 col-form-label">Nama Instansi </label>
+			   <div class="col-sm-10">
+			     <select class="form-control" required="required" th:value="${listInstansi}" name="idInstansi" id="idInstansi">
+	                    <option disabled="disabled" selected="selected" > -- Instansi --</option>
+	                    <option th:each="ins : ${listInstansi}" th:value="${ins.id}" th:text="${ins.nama}" ></option>
+	            </select>
+			   </div>
+			</div>
+			<div class="form-group row">
+			   <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
+			   <div class="col-sm-10">
+			     <select class="form-control" required="required" th:value="${listJabatan}" name="idJabatan" id="idJabatan">
+	                    <option disabled="disabled" selected="selected" > -- Jabatan --</option>
+	                    <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
+	            </select>
+	            <a ></a>
+			   </div>
+			</div>
+			<p></p>
+				<button type="submit" class="btn btn-primary">Simpan</button>
+		</form>
+	</div>
+</body>
+
+</html>

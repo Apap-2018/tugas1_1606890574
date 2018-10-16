@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag">/</object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar(name='Home')"></nav>
+	
+	<div class="container-fluid">
+		<br>
+		<table border="1">
+			<caption>Flights</caption>
+			<thead>
+				<tr>
+					<th style="text-align: center">Nama</th>
+					<th style="text-align: center">Deskripsi</th>
+					<th style="text-align: center">Gaji Pokok</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="jabatan : ${listJabatan}">
+					<td th:text="${jabatan.nama}"></td>
+					<td th:text="${jabatan.deskripsi}"></td>
+					<td th:text="${jabatan.gaji_pokok}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+
+</html>
