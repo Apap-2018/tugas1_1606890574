@@ -1,5 +1,8 @@
 package com.apap.sipeg.controller;
 
-public class InstansiController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class InstansiController {
+	
 }

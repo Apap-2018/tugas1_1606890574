@@ -26,4 +26,9 @@ public class InstansiServiceImpl implements InstansiService{
 		return provinsi.getProvinsiInstansi();
 	}
 
+	@Override
+	public InstansiModel getInstansiDetailById(long id) {
+		return instansiDb.findById(id);
+	}
+
 }

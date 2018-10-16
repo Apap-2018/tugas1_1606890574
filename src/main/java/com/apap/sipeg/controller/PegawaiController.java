@@ -44,6 +44,7 @@ public class PegawaiController {
 	@RequestMapping("/")
 	private String home(Model model) {
 		model.addAttribute("listJabatan", jabatanService.getAll());
+		model.addAttribute("listInstansi", instansiService.getAll());
 		return "home";
 	}
 	
@@ -79,6 +80,18 @@ public class PegawaiController {
 		model.addAttribute("listInstansi", instansiService.getAll());
 		model.addAttribute("listJabatan", jabatanService.getAll());
 		return "cari-pegawai";
+	}
+	
+	@RequestMapping(value = "/pegawai/termuda-tertua", method = RequestMethod.GET)
+	private String tuamuda(@RequestParam(value = "idInstansi") String idInstansi, Model model) {
+		InstansiModel instansi = instansiService.getInstansiDetailById(Long.parseLong(idInstansi));
+		PegawaiModel tua = pegawaiService.getPegawaiInstansi(instansi).get(0);
+		PegawaiModel muda = pegawaiService.getPegawaiInstansi(instansi).get(pegawaiService.getPegawaiInstansi(instansi).size() - 1);
+		//sampai sini sudah terlihat pegawai tertua dan termuda
+		model.addAttribute("instansi", instansi);
+		model.addAttribute("tua", tua);
+		model.addAttribute("muda", muda);
+		return "termuda-tertua";
 	}
 }
 
