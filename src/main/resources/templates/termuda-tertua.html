@@ -14,6 +14,7 @@
 	<div class="container-fluid">
 		<div class="row">
 		  	<div class="col">
+		  		<br>
 		  		<div class="card">
 					<div class="card-header">
 						Data Pegawai Termuda
@@ -25,6 +26,7 @@
 						<h3 th:text="'Tanggal Lahir : ' + ${muda.tanggal_lahir}"></h3>
 						<h3 th:text="'Tahun Masuk : ' + ${muda.tahun_masuk}"></h3>
 						<h3 th:text="'Nama Instansi : ' + ${muda.instansi.nama}+ ' - ' + ${tua.instansi.instansiProvinsi.nama}"></h3>
+						<h3 th:text="'Jabatan : '"></h3>
 						<div th:each="jabatan : ${muda.listJabatan}">
 							<h3 th:text="'-' + ${jabatan.nama}"></h3>
 						</div>
@@ -32,6 +34,7 @@
 				</div>
 		  	</div>
 		  	<div class="col">
+		  		<br>
 		  		<div class="card">
 					<div class="card-header">
 						Data Pegawai Tertua
@@ -43,6 +46,7 @@
 						<h3 th:text="'Tanggal Lahir : ' + ${tua.tanggal_lahir}"></h3>
 						<h3 th:text="'Tahun Masuk : ' + ${tua.tahun_masuk}"></h3>
 						<h3 th:text="'Nama Instansi : ' + ${tua.instansi.nama} + ' - ' + ${tua.instansi.instansiProvinsi.nama}"></h3>
+						<h3 th:text="'Jabatan : '"></h3>
 						<div th:each="jabatan : ${tua.listJabatan}">
 							<h3 th:text="'-' + ${jabatan.nama}"></h3>
 						</div>

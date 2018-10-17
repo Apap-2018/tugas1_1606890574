@@ -58,7 +58,7 @@ public class JabatanModel implements Serializable{
 	 */
 	@ManyToMany(mappedBy = "listJabatan")
     private Set<PegawaiModel> listPegawai = new HashSet<>();
-
+	
 	public Set<PegawaiModel> getListPegawai() {
 		return listPegawai;
 	}

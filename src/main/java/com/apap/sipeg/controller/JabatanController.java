@@ -32,6 +32,12 @@ public class JabatanController {
 		return "viewall-jabatan";
 	}
 	
+	@RequestMapping("/jabatan/viewall-jml-pegawai")
+	private String viewallJumlahPegawai(Model model) {
+		model.addAttribute("listJabatan", jabatanService.getAll());
+		return "viewall-jabatan-jml-pegawai";
+	}
+	
 	@RequestMapping(value = "/jabatan/tambah", method = RequestMethod.GET)
 	private String addJabatan(Model model) {
 		JabatanModel jabatan = new JabatanModel();

@@ -6,5 +6,5 @@ import com.apap.sipeg.model.ProvinsiModel;
 
 @Repository
 public interface ProvinsiDB extends JpaRepository<ProvinsiModel, Long>{
-
+	ProvinsiModel findById(long id);
 }

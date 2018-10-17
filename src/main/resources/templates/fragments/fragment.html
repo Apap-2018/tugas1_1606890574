@@ -5,10 +5,14 @@
 		
 		<head th:fragment="css">
 			<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+			<link rel="stylesheet" th:href="@{/css/style-table.css}">
 		</head>
 		
 		<head th:fragment="js">
-			<script th:src="@{/js/datatables.min.js}"></script>
+			<script th:src="@{/js/bootstrap.min.js}"></script>
+		</head>
+		<head th:fragment="js">
+			<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 		</head>
 	</head>
 	
@@ -33,6 +37,9 @@
 					</li>
 					<li class="nav-item active">
 						<a class="nav-link" th:href="@{/jabatan/viewall}">Lihat Semua Jabatan</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/jabatan/viewall-jml-pegawai}">Lihat Jumlah Pegawai di Jabatan</a>
 					</li>
 				</ul>
 			</div>

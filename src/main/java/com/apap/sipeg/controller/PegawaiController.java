@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.apap.sipeg.model.InstansiModel;
 import com.apap.sipeg.model.JabatanModel;
@@ -68,11 +69,42 @@ public class PegawaiController {
 		pegawai.getListJabatan().add(new JabatanModel());
 		model.addAttribute("pegawai", pegawai);
 		
-		model.addAttribute("provinsi",provinsiService.getAll());
-		model.addAttribute("listInstansi", instansiService.getAll());
-		model.addAttribute("listJabatan", jabatanService.getAll());
+		List<InstansiModel> listInstansi = instansiService.getAll();
+		model.addAttribute("listInstansi", new HashSet(listInstansi));
+		
+		List<ProvinsiModel> listProvinsi = provinsiService.getAll();
+		model.addAttribute("listProvinsi", listProvinsi);
+		
+		List<JabatanModel> listJabatan = jabatanService.getAll();
+		model.addAttribute("listJabatan", new HashSet(listJabatan));
+		
+		model.addAttribute("tanggallahir", "");
+		
 		return "add-pegawai";
 	}
+	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
+	public String tambahPegawai (@ModelAttribute PegawaiModel pegawai, Model model) {
+		InstansiModel instansi = pegawai.getInstansi();
+		Date tanggalLahir = pegawai.getTanggal_lahir();
+		String tahunMasuk = pegawai.getTahun_masuk();
+		//int pegawaiKe = pegawaiService.getPegawaiByInstansiAndTanggalLahirAndTahunMasuk(instansi, tanggalLahir, tahunMasuk).size()+1;
+		
+		String kodeInstansi = Long.toString(instansi.getId());
+		
+		String pattern = "dd-MM-yy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		
+		String tanggalLahirString = simpleDateFormat.format(tanggalLahir).replaceAll("-", "");
+		//String pegawaiKeString = pegawaiKe/10 == 0 ? ("0" + Integer.toString(pegawaiKe)) : (Integer.toString(pegawaiKe));
+		//String nip = kodeInstansi + tanggalLahirString + tahunMasuk + pegawaiKeString;
+		
+		//pegawai.setNip(nip);
+		pegawaiService.addPegawai(pegawai);
+		
+		model.addAttribute("pegawai", pegawai);
+
+		return "add-pegawai-success";
+		}
 	
 	@RequestMapping(value = "/pegawai/cari", method = RequestMethod.GET)
 	private String cari( Model model) {
