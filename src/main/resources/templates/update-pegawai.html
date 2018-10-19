@@ -13,42 +13,49 @@
 	
 		<div class="container-fluid">
 		<br>
-		<h3>Tambah Pegawai</h3>
+		<h3>Update Pegawai</h3>
 		<br>
-		<form th:action="@{/pegawai/tambah}" method="POST">
+		<form th:action="@{/pegawai/ubah}" method="POST">
+			<input type="hidden" name="nip" class="form-control" th:value="${pegawai.nip}"/>
 			<div class="form-group row">
 			   <label for="nama" class="col-sm-2 col-form-label">Nama </label>
 			   <div class="col-sm-10">
-			     <input type="text" class="form-control" name="nama">
+			     <input type="text" class="form-control" name="nama" th:value="${pegawai.nama}">
 			   </div>
 			</div>
 			<div class="form-group row">
 			   <label for="tempatLahir" class="col-sm-2 col-form-label">Tempat Lahir </label>
 			   <div class="col-sm-10">
-			     <input type="text" class="form-control" name="tempatLahir">
+			     <input type="text" class="form-control" name="tempatLahir" th:value="${pegawai.tempatLahir}" >
 			   </div>
 			</div>
 			<div class="form-group row">
 			   <label for="tanggalLahir" class="col-sm-2 col-form-label">Tanggal Lahir </label>
 			   <div class="col-sm-10">
-			     <input type="Date" class="form-control" name="tanggalLahir">
+			     <input type="Date" class="form-control" name="tanggalLahir" th:value="${pegawai.tanggalLahir}">
 			   </div>
 			</div>
 			<div class="form-group row">
 			   <label for="tahunMasuk" class="col-sm-2 col-form-label">Tahun Masuk </label>
 			   <div class="col-sm-10">
-			     <input type="text" class="form-control" name="tahunMasuk">
+			     <input type="text" class="form-control" name="tahunMasuk" th:value="${pegawai.tahunMasuk}">
 			   </div>
 			</div>
 			
 			<div class="form-group row">
 			   <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
 			   <div class="col-sm-10">
-			     <select class="form-control" required="required" th:value="${listJabatan}" name="listJabatan" id="jabatan">
-	                    <option disabled="disabled" selected="selected" > -- Jabatan --</option>
-	                    <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
-	            </select>
-	            <a ></a>
+			   	<div th:if="${pegawai.listJabatan} == null">
+					<select  class="form-control" required="required" name="listJabatan" id="jabatan" th:value="${listJabatan}" >
+				      <option disabled="disabled" selected="selected" > -- Pilih Jabatan -- </option>
+				      <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
+				    </select>
+				</div>
+				<div th:unless="${pegawai.listJabatan} == null">
+					<select  class="form-control" required="required" name="listJabatan" id="jabatan" th:value="${listJabatan}" >
+				      <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
+				    </select>
+				</div>
 			   </div>
 			</div>
 			<div class="form-group">
@@ -61,8 +68,8 @@
 					    </select>
 					</div>
 					<div th:unless="${pegawai.instansi} == null">
-						<select  class="form-control" required="required" name="provinsi" id="provinsi" th:value="*{instansi.provinsi}">
-					      <option th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}" th:selected="${provinsi.id} == *{instansi.provinsi.id}"></option>
+						<select  class="form-control" required="required" name="provinsi" id="provinsi" th:value="${pegawai.instansi.instansiProvinsi}">
+					      <option th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}" th:selected="${provinsi.id} == ${pegawai.instansi.instansiProvinsi.id}"></option>
 					    </select>
 					</div>
 			    </div>	    

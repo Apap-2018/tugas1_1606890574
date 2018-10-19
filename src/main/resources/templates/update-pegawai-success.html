@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Sukses</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag">/</object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar(name='')"></nav>
+	<div class="container-fluid">
+		<h2>Sukses!</h2>
+		<p th:text="'Pegawai dengan NIP ' + ${niplama} + ' berhasil diubah'"></p>
+	</div>
+</body>
+
+</html>

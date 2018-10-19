@@ -22,9 +22,9 @@
 					<div class="card-body">
 						<h3 th:text="'NIP : ' + ${muda.nip}"></h3>
 						<h3 th:text="'Nama : ' + ${muda.nama}"></h3>
-						<h3 th:text="'Tempat Lahir : ' + ${muda.tempat_lahir}"></h3>
-						<h3 th:text="'Tanggal Lahir : ' + ${muda.tanggal_lahir}"></h3>
-						<h3 th:text="'Tahun Masuk : ' + ${muda.tahun_masuk}"></h3>
+						<h3 th:text="'Tempat Lahir : ' + ${muda.tempatLahir}"></h3>
+						<h3 th:text="'Tanggal Lahir : ' + ${muda.tanggalLahir}"></h3>
+						<h3 th:text="'Tahun Masuk : ' + ${muda.tahunMasuk}"></h3>
 						<h3 th:text="'Nama Instansi : ' + ${muda.instansi.nama}+ ' - ' + ${tua.instansi.instansiProvinsi.nama}"></h3>
 						<h3 th:text="'Jabatan : '"></h3>
 						<div th:each="jabatan : ${muda.listJabatan}">
@@ -42,9 +42,9 @@
 					<div class="card-body">
 						<h3 th:text="'NIP : ' + ${tua.nip}"></h3>
 						<h3 th:text="'Nama : ' + ${tua.nama}"></h3>
-						<h3 th:text="'Tempat Lahir : ' + ${tua.tempat_lahir}"></h3>
-						<h3 th:text="'Tanggal Lahir : ' + ${tua.tanggal_lahir}"></h3>
-						<h3 th:text="'Tahun Masuk : ' + ${tua.tahun_masuk}"></h3>
+						<h3 th:text="'Tempat Lahir : ' + ${tua.tempatLahir}"></h3>
+						<h3 th:text="'Tanggal Lahir : ' + ${tua.tanggalLahir}"></h3>
+						<h3 th:text="'Tahun Masuk : ' + ${tua.tahunMasuk}"></h3>
 						<h3 th:text="'Nama Instansi : ' + ${tua.instansi.nama} + ' - ' + ${tua.instansi.instansiProvinsi.nama}"></h3>
 						<h3 th:text="'Jabatan : '"></h3>
 						<div th:each="jabatan : ${tua.listJabatan}">

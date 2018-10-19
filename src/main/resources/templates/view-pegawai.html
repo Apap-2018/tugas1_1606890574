@@ -12,19 +12,34 @@
 	<nav th:replace="fragments/fragment :: navbar(name='Home')"></nav>
 	
 	<div class="container-fluid">
-		<h2 th:text="'Lihat Data Pegawai - ' + ${pegawai.nip}"></h2>
-		<h3 th:text="'NIP : ' + ${pegawai.nip}"></h3>
-		<h3 th:text="'Nama : ' + ${pegawai.nama}"></h3>
-		<h3 th:text="'Tempat Lahir : ' + ${pegawai.tempat_lahir}"></h3>
-		<h3 th:text="'Tanggal Lahir : ' + ${pegawai.tanggal_lahir}"></h3>
-		<h3 th:text="'Tahun Masuk : ' + ${pegawai.tahun_masuk}"></h3>
-		<h3 th:text="'Nama Instansi : ' + ${nama_instansi} + ' - ' + ${nama_provinsi}"></h3>
-		<h3 th:text="'Jabatan : '"></h3>
-			<div th:each="jabatan : ${pegawai.listJabatan}">
-				<h3 th:text="'-' + ${jabatan.nama}"></h3>
-			</div>
-		<h3 th:text="'Gaji : Rp' + ${gaji}"></h3>
-		
+		<div class="row">
+		  	<div class="col">
+		  		<br>
+		  		<div class="card">
+					<div class="card-header">
+						
+					</div>
+					<div class="card-body">
+						<h2 th:text="'Lihat Data Pegawai - ' + ${pegawai.nip}"></h2>
+						<h3 th:text="'NIP : ' + ${pegawai.nip}"></h3>
+						<h3 th:text="'Nama : ' + ${pegawai.nama}"></h3>
+						<h3 th:text="'Tempat Lahir : ' + ${pegawai.tempatLahir}"></h3>
+						<h3 th:text="'Tanggal Lahir : ' + ${pegawai.tanggalLahir}"></h3>
+						<h3 th:text="'Tahun Masuk : ' + ${pegawai.tahunMasuk}"></h3>
+						<h3 th:text="'Nama Instansi : ' + ${nama_instansi} + ' - ' + ${nama_provinsi}"></h3>
+						<h3 th:text="'Jabatan : '"></h3>
+							<div th:each="jabatan : ${pegawai.listJabatan}">
+								<h3 th:text="'-' + ${jabatan.nama}"></h3>
+							</div>
+						<h3 th:text="'Gaji : Rp' + ${gaji}"></h3>
+						<form th:action="@{/pegawai/ubah}" method="GET">
+							<input type="hidden" name="nip" class="form-control" th:value="${pegawai.nip}"/>
+							<button type="submit" class="btn btn-primary">Ubah</button>
+						</form>
+					</div>
+				</div>
+		  	</div>
+		</div>
 	</div>
 </body>
 

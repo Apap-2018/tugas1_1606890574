@@ -85,15 +85,15 @@ public class PegawaiController {
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
 	public String tambahPegawai (@ModelAttribute PegawaiModel pegawai, Model model) {
 		System.out.println("1 masuk sini, " + pegawai.getNama());
-		System.out.println("2 tahun masuk, " + pegawai.getTahun_masuk());
-		System.out.println("3 tempat lahir, " + pegawai.getTempat_lahir());
-		System.out.println("3 tanggal lahir, " + pegawai.getTanggal_lahir());
+		System.out.println("2 tahun masuk, " + pegawai.getTahunMasuk());
+		System.out.println("3 tempat lahir, " + pegawai.getTempatLahir());
+		System.out.println("3 tanggal lahir, " + pegawai.getTanggalLahir());
 		System.out.println("4 nama instansi, " + pegawai.getInstansi().getNama());
 		System.out.println("5 nama jabatan, " + pegawai.getListJabatan().get(0).getNama());
 		
 		InstansiModel instansi = pegawai.getInstansi();
-		Date tanggalLahir = pegawai.getTanggal_lahir();
-		String tahunMasuk = pegawai.getTahun_masuk();
+		Date tanggalLahir = pegawai.getTanggalLahir();
+		String tahunMasuk = pegawai.getTahunMasuk();
 		int pegawaiKe = pegawaiService.getJmlPegawaiYangGini(instansi, tanggalLahir, tahunMasuk) + 1;
 		
 		String kodeInstansi = Long.toString(instansi.getId());
@@ -106,8 +106,10 @@ public class PegawaiController {
 		String nip = kodeInstansi + tanggalLahirString + tahunMasuk + pegawaiKeString;
 		
 		pegawai.setNip(nip);
+		
 		pegawaiService.addPegawai(pegawai);
 		
+		System.out.println("nip : " + nip);
 		model.addAttribute("pegawai", pegawai);
 
 		return "add-pegawai-success";
@@ -119,6 +121,35 @@ public class PegawaiController {
 		model.addAttribute("listInstansi", instansiService.getAll());
 		model.addAttribute("listJabatan", jabatanService.getAll());
 		return "cari-pegawai";
+	}
+
+	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.GET)
+	private String updatePegawai(@RequestParam(value = "nip") String nip, Model model) {
+		PegawaiModel pegawai = pegawaiService.getPegawaiDetailByNIP(nip);
+		model.addAttribute("pegawai", pegawai);
+		
+		List<InstansiModel> listInstansi = instansiService.getAll();
+		model.addAttribute("listInstansi", new HashSet(listInstansi));
+		
+		List<ProvinsiModel> listProvinsi = provinsiService.getAll();
+		model.addAttribute("listProvinsi", listProvinsi);
+		
+		List<JabatanModel> listJabatan = jabatanService.getAll();
+		model.addAttribute("listJabatan", new HashSet(listJabatan));
+		
+		model.addAttribute("tanggallahir", "");
+		model.addAttribute("nip", nip);
+		
+		return "update-pegawai";
+	}
+	
+
+	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
+	private String updatePegawaiSubmit(@RequestParam(value = "nip") String nip, Model model, @ModelAttribute PegawaiModel pegawai) {
+		PegawaiModel old = pegawaiService.getPegawaiDetailByNIP(nip);
+		pegawaiService.updatePegawai(old, pegawai);
+		model.addAttribute("niplama", nip);
+		return "update-pegawai-success";
 	}
 	
 	@RequestMapping(value = "/pegawai/termuda-tertua", method = RequestMethod.GET)

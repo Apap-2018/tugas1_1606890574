@@ -12,6 +12,7 @@ import com.apap.sipeg.model.PegawaiModel;
 public interface PegawaiService {
 	PegawaiModel getPegawaiDetailByNIP(String nip);
 	void addPegawai(PegawaiModel pegawai);
+	void updatePegawai(PegawaiModel old, PegawaiModel newpegawai);
 	List<PegawaiModel> getPegawaiInstansi(InstansiModel instansi);
 	int getJmlPegawaiYangGini(InstansiModel instansi, Date tanggalLahir, String tahunMasuk);
 }

@@ -149,29 +149,29 @@ public class PegawaiModel implements Serializable{
 	public void setNama(String nama) {
 		this.nama = nama;
 	}
-
-	public String getTempat_lahir() {
+	
+	public String getTempatLahir() {
 		return tempatLahir;
 	}
 
-	public void setTempat_lahir(String tempat_lahir) {
-		this.tempatLahir = tempat_lahir;
+	public void setTempatLahir(String tempatLahir) {
+		this.tempatLahir = tempatLahir;
 	}
 
-	public Date getTanggal_lahir() {
+	public Date getTanggalLahir() {
 		return tanggalLahir;
 	}
 
-	public void setTanggal_lahir(Date tanggal_lahir) {
-		this.tanggalLahir = tanggal_lahir;
+	public void setTanggalLahir(Date tanggalLahir) {
+		this.tanggalLahir = tanggalLahir;
 	}
 
-	public String getTahun_masuk() {
+	public String getTahunMasuk() {
 		return tahunMasuk;
 	}
 
-	public void setTahun_masuk(String tahun_masuk) {
-		this.tahunMasuk = tahun_masuk;
+	public void setTahunMasuk(String tahunMasuk) {
+		this.tahunMasuk = tahunMasuk;
 	}
 
 	public InstansiModel getInstansi() {
