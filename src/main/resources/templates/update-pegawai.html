@@ -43,22 +43,6 @@
 			</div>
 			
 			<div class="form-group row">
-			   <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
-			   <div class="col-sm-10">
-			   	<div th:if="${pegawai.listJabatan} == null">
-					<select  class="form-control" required="required" name="listJabatan" id="jabatan" th:value="${listJabatan}" >
-				      <option disabled="disabled" selected="selected" > -- Pilih Jabatan -- </option>
-				      <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
-				    </select>
-				</div>
-				<div th:unless="${pegawai.listJabatan} == null">
-					<select  class="form-control" required="required" name="listJabatan" id="jabatan" th:value="${listJabatan}" >
-				      <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
-				    </select>
-				</div>
-			   </div>
-			</div>
-			<div class="form-group">
 			    <label for="provinsi" class="col-sm-2 col-form-label">Provinsi:</label>
 			    <div class="col-sm-10">
 			    	<div th:if="${pegawai.instansi} == null">
@@ -74,7 +58,7 @@
 					</div>
 			    </div>	    
 			</div>
-			<div class="form-group">
+			<div class="form-group row">
 		         <label for="instansi" class="col-sm-2 col-form-label">Nama Instansi</label>
 		         <div class="col-sm-10">
 		         	<div th:if="${pegawai.instansi} == null">
@@ -89,6 +73,22 @@
 		                </select>	
 					</div>
 		         </div>
+			</div>
+			<div class="form-group row">
+			   <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
+			   <div class="col-sm-10">
+			   	<div th:if="${pegawai.listJabatan} == null">
+					<select  class="form-control" required="required" name="listJabatan" id="jabatan" th:value="${listJabatan}" >
+				      <option disabled="disabled" selected="selected" > -- Pilih Jabatan -- </option>
+				      <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
+				    </select>
+				</div>
+				<div th:unless="${pegawai.listJabatan} == null">
+					<select  class="form-control" required="required" name="listJabatan" id="jabatan" th:value="${listJabatan}" >
+				      <option th:each="jab : ${listJabatan}" th:value="${jab.id}" th:text="${jab.nama}" ></option>
+				    </select>
+				</div>
+			   </d	iv>
 			</div>
 			<p></p>
 				<button type="submit" class="btn btn-primary">Simpan</button>
