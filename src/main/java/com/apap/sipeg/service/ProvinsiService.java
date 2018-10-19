@@ -8,5 +8,4 @@ import com.apap.sipeg.model.ProvinsiModel;
 public interface ProvinsiService {
 	List<ProvinsiModel> getAll();
 	ProvinsiModel getProvinsiById(long id);
-	List<InstansiModel> getAllInstansi(ProvinsiModel provinsi);
 }

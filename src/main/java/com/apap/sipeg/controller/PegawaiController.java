@@ -84,10 +84,17 @@ public class PegawaiController {
 	}
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
 	public String tambahPegawai (@ModelAttribute PegawaiModel pegawai, Model model) {
+		System.out.println("1 masuk sini, " + pegawai.getNama());
+		System.out.println("2 tahun masuk, " + pegawai.getTahun_masuk());
+		System.out.println("3 tempat lahir, " + pegawai.getTempat_lahir());
+		System.out.println("3 tanggal lahir, " + pegawai.getTanggal_lahir());
+		System.out.println("4 nama instansi, " + pegawai.getInstansi().getNama());
+		System.out.println("5 nama jabatan, " + pegawai.getListJabatan().get(0).getNama());
+		
 		InstansiModel instansi = pegawai.getInstansi();
 		Date tanggalLahir = pegawai.getTanggal_lahir();
 		String tahunMasuk = pegawai.getTahun_masuk();
-		//int pegawaiKe = pegawaiService.getPegawaiByInstansiAndTanggalLahirAndTahunMasuk(instansi, tanggalLahir, tahunMasuk).size()+1;
+		int pegawaiKe = pegawaiService.getJmlPegawaiYangGini(instansi, tanggalLahir, tahunMasuk) + 1;
 		
 		String kodeInstansi = Long.toString(instansi.getId());
 		
@@ -95,16 +102,16 @@ public class PegawaiController {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		
 		String tanggalLahirString = simpleDateFormat.format(tanggalLahir).replaceAll("-", "");
-		//String pegawaiKeString = pegawaiKe/10 == 0 ? ("0" + Integer.toString(pegawaiKe)) : (Integer.toString(pegawaiKe));
-		//String nip = kodeInstansi + tanggalLahirString + tahunMasuk + pegawaiKeString;
+		String pegawaiKeString = pegawaiKe/10 == 0 ? ("0" + Integer.toString(pegawaiKe)) : (Integer.toString(pegawaiKe));
+		String nip = kodeInstansi + tanggalLahirString + tahunMasuk + pegawaiKeString;
 		
-		//pegawai.setNip(nip);
+		pegawai.setNip(nip);
 		pegawaiService.addPegawai(pegawai);
 		
 		model.addAttribute("pegawai", pegawai);
 
 		return "add-pegawai-success";
-		}
+	}
 	
 	@RequestMapping(value = "/pegawai/cari", method = RequestMethod.GET)
 	private String cari( Model model) {

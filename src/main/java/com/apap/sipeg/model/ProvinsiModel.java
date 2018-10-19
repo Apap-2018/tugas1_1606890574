@@ -14,7 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.apap.sipeg.model.InstansiModel; 
+import com.apap.sipeg.model.InstansiModel;
+import com.fasterxml.jackson.annotation.JsonIgnore; 
 
 
 /**
@@ -32,7 +33,7 @@ public class ProvinsiModel implements Serializable{
 	@Id
 	@Size (max = 10)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
 	/*
 	 * nama provinsi 
@@ -53,13 +54,14 @@ public class ProvinsiModel implements Serializable{
 	 * provinsi memiliki beberapa instansi 
 	 */
 	@OneToMany(mappedBy = "instansiProvinsi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<InstansiModel> listInstansi;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

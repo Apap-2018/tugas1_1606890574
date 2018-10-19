@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * 
@@ -57,6 +59,7 @@ public class JabatanModel implements Serializable{
 	 * hubungan many to mant dengan pegawai
 	 */
 	@ManyToMany(mappedBy = "listJabatan")
+	@JsonIgnore
     private Set<PegawaiModel> listPegawai = new HashSet<>();
 	
 	public Set<PegawaiModel> getListPegawai() {

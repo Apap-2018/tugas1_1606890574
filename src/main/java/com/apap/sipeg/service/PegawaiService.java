@@ -13,4 +13,5 @@ public interface PegawaiService {
 	PegawaiModel getPegawaiDetailByNIP(String nip);
 	void addPegawai(PegawaiModel pegawai);
 	List<PegawaiModel> getPegawaiInstansi(InstansiModel instansi);
+	int getJmlPegawaiYangGini(InstansiModel instansi, Date tanggalLahir, String tahunMasuk);
 }

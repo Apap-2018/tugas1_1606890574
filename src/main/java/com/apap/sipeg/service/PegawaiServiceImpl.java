@@ -1,5 +1,6 @@
 package com.apap.sipeg.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class PegawaiServiceImpl implements PegawaiService{
 	@Override
 	public List<PegawaiModel> getPegawaiInstansi(InstansiModel instansi) {
 		return pegawaiDb.findByInstansiOrderByTanggalLahirAsc(instansi);
+	}
+
+	@Override
+	public int getJmlPegawaiYangGini(InstansiModel instansi, Date tanggalLahir, String tahunMasuk) {
+		return pegawaiDb.findByInstansiAndTanggalLahirAndTahunMasuk(instansi, tanggalLahir, tahunMasuk).size();
 	}
 
 }

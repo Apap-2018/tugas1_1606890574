@@ -63,14 +63,14 @@ public class PegawaiModel implements Serializable{
 	 */
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "tempat_lahir", nullable = false)
-	private String tempat_lahir;
+	@Column(name = "tempatLahir", nullable = false)
+	private String tempatLahir;
 	
 	/*
 	 * tanggal lahir pegawai 
 	 */
 	@NotNull
-	@Column(name = "tanggal_lahir", nullable = false)
+	@Column(name = "tanggalLahir", nullable = false)
 	private Date tanggalLahir;
 	
 	/*
@@ -78,8 +78,8 @@ public class PegawaiModel implements Serializable{
 	 */
 	@NotNull
 	@Size(max = 255)
-	@Column(name = "tahun_masuk", nullable = false)
-	private String tahun_masuk;
+	@Column(name = "tahunMasuk", nullable = false)
+	private String tahunMasuk;
 	
 	/*
 	 * id instansi tempat pegawai bekerja, Foreign Key ke INSTANSI.id 
@@ -100,7 +100,8 @@ public class PegawaiModel implements Serializable{
 	        joinColumns = { @JoinColumn(name = "id_pegawai") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "id_jabatan") }
 	    )
-	    List<JabatanModel> listJabatan = new ArrayList<>();
+	 @JsonIgnore
+	 List<JabatanModel> listJabatan = new ArrayList<>();
 
 	public long getGaji() {
 		Double tunjangan = this.instansi.getInstansiProvinsi().getPresentase_tunjangan();
@@ -150,11 +151,11 @@ public class PegawaiModel implements Serializable{
 	}
 
 	public String getTempat_lahir() {
-		return tempat_lahir;
+		return tempatLahir;
 	}
 
 	public void setTempat_lahir(String tempat_lahir) {
-		this.tempat_lahir = tempat_lahir;
+		this.tempatLahir = tempat_lahir;
 	}
 
 	public Date getTanggal_lahir() {
@@ -166,11 +167,11 @@ public class PegawaiModel implements Serializable{
 	}
 
 	public String getTahun_masuk() {
-		return tahun_masuk;
+		return tahunMasuk;
 	}
 
 	public void setTahun_masuk(String tahun_masuk) {
-		this.tahun_masuk = tahun_masuk;
+		this.tahunMasuk = tahun_masuk;
 	}
 
 	public InstansiModel getInstansi() {

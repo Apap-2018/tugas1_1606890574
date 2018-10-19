@@ -23,7 +23,7 @@ public class InstansiServiceImpl implements InstansiService{
 
 	@Override
 	public List<InstansiModel> getInstansiFromProvinsi(ProvinsiModel provinsi) {
-		return provinsi.getProvinsiInstansi();
+		return instansiDb.findByInstansiProvinsi(provinsi);
 	}
 
 	@Override
