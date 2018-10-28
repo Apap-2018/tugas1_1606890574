@@ -34,8 +34,8 @@ public class PegawaiServiceImpl implements PegawaiService{
 	}
 
 	@Override
-	public int getJmlPegawaiYangGini(InstansiModel instansi, Date tanggalLahir, String tahunMasuk) {
-		return pegawaiDb.findByInstansiAndTanggalLahirAndTahunMasuk(instansi, tanggalLahir, tahunMasuk).size();
+	public List<PegawaiModel> getPegawaiYangGini(InstansiModel instansi, Date tanggalLahir, String tahunMasuk) {
+		return pegawaiDb.findByInstansiAndTanggalLahirAndTahunMasuk(instansi, tanggalLahir, tahunMasuk);
 	}
 
 	@Override
@@ -47,19 +47,19 @@ public class PegawaiServiceImpl implements PegawaiService{
 		old.setInstansi(newPegawai.getInstansi());
 		old.setListJabatan(newPegawai.getListJabatan());
 		
-		
-		int pegawaiKe = getJmlPegawaiYangGini(newPegawai.getInstansi(), newPegawai.getTanggalLahir(), newPegawai.getTahunMasuk()) + 1;
-		
-		String kodeInstansi = Long.toString(newPegawai.getInstansi().getId());
-		
-		String pattern = "dd-MM-yy";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		
-		String tanggalLahirString = simpleDateFormat.format(newPegawai.getTanggalLahir()).replaceAll("-", "");
-		String pegawaiKeString = pegawaiKe/10 == 0 ? ("0" + Integer.toString(pegawaiKe)) : (Integer.toString(pegawaiKe));
-		String nip = kodeInstansi + tanggalLahirString + newPegawai.getTahunMasuk() + pegawaiKeString;
-		
-		old.setNip(nip);
+//		
+//		int pegawaiKe = getJmlPegawaiYangGini(newPegawai.getInstansi(), newPegawai.getTanggalLahir(), newPegawai.getTahunMasuk()) + 1;
+//		
+//		String kodeInstansi = Long.toString(newPegawai.getInstansi().getId());
+//		
+//		String pattern = "dd-MM-yy";
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//		
+//		String tanggalLahirString = simpleDateFormat.format(newPegawai.getTanggalLahir()).replaceAll("-", "");
+//		String pegawaiKeString = pegawaiKe/10 == 0 ? ("0" + Integer.toString(pegawaiKe)) : (Integer.toString(pegawaiKe));
+//		String nip = kodeInstansi + tanggalLahirString + newPegawai.getTahunMasuk() + pegawaiKeString;
+//		
+//		old.setNip(nip);
 		
 		pegawaiDb.save(old);
 	}
