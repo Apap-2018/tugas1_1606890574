@@ -230,45 +230,14 @@ public class PegawaiController {
 		}
 	}
 	
-//	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
-//	public String tambahPegawai (@ModelAttribute PegawaiModel pegawai, Model model) {
-//		
-//		InstansiModel instansi = pegawai.getInstansi();
-//		Date tanggalLahir = pegawai.getTanggalLahir();
-//		String tahunMasuk = pegawai.getTahunMasuk();
-//		int pegawaiKe = pegawaiService.getJmlPegawaiYangGini(instansi, tanggalLahir, tahunMasuk) + 1;
-//		
-//		String kodeInstansi = Long.toString(instansi.getId());
-//		
-//		String pattern = "dd-MM-yy";
-//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//		
-//		String tanggalLahirString = simpleDateFormat.format(tanggalLahir).replaceAll("-", "");
-//		String pegawaiKeString = pegawaiKe/10 == 0 ? ("0" + Integer.toString(pegawaiKe)) : (Integer.toString(pegawaiKe));
-//		String nip = kodeInstansi + tanggalLahirString + tahunMasuk + pegawaiKeString;
-//		
-//		pegawai.setNip(nip);
-//		
-//		pegawaiService.addPegawai(pegawai);
-//		
-//		System.out.println("nip : " + nip);
-//		model.addAttribute("pegawai", pegawai);
-//
-//		return "add-pegawai-success";
-//	}
-	
-	@RequestMapping(value = "/pegawai/cari", method = RequestMethod.GET)
-	private String cari( Model model) {
-		model.addAttribute("provinsi",provinsiService.getAll());
-		model.addAttribute("listInstansi", instansiService.getAll());
-		model.addAttribute("listJabatan", jabatanService.getAll());
-		return "cari-pegawai";
-	}
-
 	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.GET)
-	private String updatePegawai(@RequestParam(value = "nip") String nip, Model model) {
+	private String updatePegawai(@RequestParam String nip,  Model model) {
 		PegawaiModel pegawai = pegawaiService.getPegawaiDetailByNIP(nip);
 		model.addAttribute("pegawai", pegawai);
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String tanggalLahir = simpleDateFormat.format(pegawai.getTanggalLahir());
+		model.addAttribute("tanggalLahir", tanggalLahir);
 		
 		List<InstansiModel> listInstansi = instansiService.getAll();
 		model.addAttribute("listInstansi", new HashSet(listInstansi));
@@ -279,21 +248,85 @@ public class PegawaiController {
 		List<JabatanModel> listJabatan = jabatanService.getAll();
 		model.addAttribute("listJabatan", new HashSet(listJabatan));
 		
-		model.addAttribute("tanggallahir", "");
-		model.addAttribute("nip", nip);
-		
 		return "update-pegawai";
 	}
 	
-
-	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
-	private String updatePegawaiSubmit(@RequestParam(value = "nip") String nip, Model model, @ModelAttribute PegawaiModel pegawai) {
-		PegawaiModel old = pegawaiService.getPegawaiDetailByNIP(nip);
-		pegawaiService.updatePegawai(old, pegawai);
-		model.addAttribute("niplama", nip);
-		return "update-pegawai-success";
+	
+	/*
+	 * collaborator : github.com/zakiraihan
+	 * dengan penyesuaian 
+	 */
+	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST, params={"addJabatan"})
+	private String addRowUpdate(@ModelAttribute PegawaiModel pegawai, Model model) {
+		System.out.println("masuk add jabatan");
+		System.out.println(pegawai.getListJabatan().size());
+		pegawai.getListJabatan().add(new JabatanModel());
+		model.addAttribute("pegawai", pegawai);
+		
+		/*
+		 * penyesuaian
+		 */
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String tanggalLahir = simpleDateFormat.format(pegawai.getTanggalLahir());
+		model.addAttribute("tanggalLahir", tanggalLahir);
+		
+		List<InstansiModel> listInstansi = instansiService.getInstansiFromProvinsi(pegawai.getInstansi().getInstansiProvinsi());
+		model.addAttribute("listInstansi", new HashSet(listInstansi));
+		
+		List<JabatanModel> listJabatan = jabatanService.getAll();
+		model.addAttribute("listJabatan", new HashSet(listJabatan));
+		
+		List<ProvinsiModel> listProvinsi = provinsiService.getAll();
+		model.addAttribute("listProvinsi", listProvinsi);
+		return "update-pegawai";
 	}
 	
+	/*
+	 * collaborator : github.com/zakiraihan
+	 * dengan penyesuaian 
+	 */
+	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST, params={"deleteJabatan"})
+	private String deleteRowUpdate(@ModelAttribute PegawaiModel pegawai, Model model, HttpServletRequest req) {
+		
+		Integer rowId =  Integer.valueOf(req.getParameter("deleteJabatan"));
+		pegawai.getListJabatan().remove(rowId.intValue());
+		model.addAttribute("pegawai", pegawai); 
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String tanggalLahir = simpleDateFormat.format(pegawai.getTanggalLahir());
+		model.addAttribute("tanggalLahir", tanggalLahir);
+		
+		List<InstansiModel> listInstansi = instansiService.getInstansiFromProvinsi(pegawai.getInstansi().getInstansiProvinsi());
+		model.addAttribute("listInstansi", new HashSet(listInstansi));
+		
+		List<JabatanModel> listJabatan = jabatanService.getAll();
+		model.addAttribute("listJabatan", new HashSet(listJabatan));
+		
+		List<ProvinsiModel> listProvinsi = provinsiService.getAll();
+		model.addAttribute("listProvinsi", listProvinsi);
+		return "update-pegawai";
+	}
+	/*
+	 * collaborator : github.com/zakiraihan
+	 * dengan penyesuaian 
+	 */
+	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
+	public String updatePegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
+		String oldNip = pegawai.getNip();
+		PegawaiModel old = pegawaiService.getPegawaiDetailByNIP(oldNip);
+		String newNip = nipGenerator(pegawai);
+		pegawai.setNip(nipGenerator(pegawai));
+		
+		System.out.println("old = " + oldNip + ", new = " + newNip);
+		
+		pegawaiService.updatePegawai(old, pegawai);
+		
+		model.addAttribute("pegawai", pegawai);
+		model.addAttribute("oldnip", oldNip);
+		
+		return "update-pegawai-success";
+	}	
+
 	@RequestMapping(value = "/pegawai/termuda-tertua", method = RequestMethod.GET)
 	private String tuamuda(@RequestParam(value = "idInstansi") String idInstansi, Model model) {
 		InstansiModel instansi = instansiService.getInstansiDetailById(Long.parseLong(idInstansi));

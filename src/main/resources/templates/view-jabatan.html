@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Home</title>
+	<title>Detail Jabatan</title>
 	
 	<object th:include="fragments/fragment :: css" th:remove="tag">/</object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -12,7 +12,7 @@
 	<nav th:replace="fragments/fragment :: navbar(name='Home')"></nav>
 	
 	<div class="container-fluid">
-		<h2 th:text="'Detail Jabatan' + ${jabatan.nama}"></h2>
+		<h2 th:text="'Detail Jabatan ' + ${jabatan.nama}"></h2>
 		<h3 th:text="'Nama : ' + ${jabatan.nama}"></h3>
 		<h3 th:text="'Deskripsi : ' + ${jabatan.deskripsi}"></h3>
 		<h3 th:text="'Gaji Pokok : ' + ${jabatan.gaji_pokok}"></h3>
